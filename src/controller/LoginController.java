@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,8 +38,11 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password"); //  get the password value from the jsp/html page
 
 		// Fill your code
-		
-		boolean validateUser = userdao.loginUser(user);
+		LocalDate Date=LocalDate.now();
+		User user=new User(email, password,Date);
+		UserDAO userDAO=new UserDAO();
+		boolean validateUser = userDAO.loginUser(user);
+		System.out.println(validateUser);
 		if(validateUser) {
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/blogView.jsp");
 			rd.forward(request, response);
